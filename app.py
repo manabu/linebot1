@@ -86,6 +86,15 @@ def handle_message(event):
     #line_bot_api.reply_message(
     #    event.reply_token,
     #    TextSendMessage(text=event.message.text))
+    source = event.source
+    print dir(source)
+    print source.type
+    if source.type == "user":
+        print source.user_id
+    elif source.type == "group":
+        print source.group_id
+    elif source.type == "room":
+        print source.room_id
     text = event.message.text
     if re.compile(u"^エコー").search(text):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'Hello World! あなたは['+event.message.text+u']といいました'))
