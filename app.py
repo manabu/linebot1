@@ -98,7 +98,7 @@ def handle_message(event):
         print("send push to ["+source.user_id+"]")
         line_bot_api.push_message(source.user_id,TextSendMessage(text=u'あなたは30秒前に、['+event.message.text+u']といいました'))
         print("finish send push")
-    elif re.compile(u"^(おしえて|教えて|ヘルプ)$").search(text):
+    elif re.compile(u"^(おしえて|教えて|ヘルプ|help)$").search(text):
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'エコーと、打ってから後ろに何か続けると、うった単語を返します'))
 
 if __name__ == "__main__":
