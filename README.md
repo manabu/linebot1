@@ -2,8 +2,11 @@
 Line bot code
 
 # HOW TO START
+
+```
 source bin/activate
 python app.py
+```
 
 # python version
 #
