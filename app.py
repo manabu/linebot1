@@ -4,6 +4,7 @@ from flask import Flask, request, abort
 from flask_apscheduler import APScheduler
 import time
 import os
+import re
 
 # Line bot
 from linebot import (
@@ -85,16 +86,18 @@ def handle_message(event):
     #line_bot_api.reply_message(
     #    event.reply_token,
     #    TextSendMessage(text=event.message.text))
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'Hello World! あなたは['+event.message.text+u']といいました'))
-    source = event.source
-    print dir(source)
-    #print source.type
-    #print source.user_id
-    #print("sleep 30sec")
-    #time.sleep(30)
-    print("send push to ["+source.user_id+"]")
-    line_bot_api.push_message(source.user_id,TextSendMessage(text=u'あなたは30秒前に、['+event.message.text+u']といいました'))
-    print("finish send push")
+    text = event.message.text
+    if re.compile("^エコー").search(text):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'Hello World! あなたは['+event.message.text+u']といいました'))
+        source = event.source
+        print dir(source)
+        #print source.type
+        #print source.user_id
+        #print("sleep 30sec")
+        #time.sleep(30)
+        print("send push to ["+source.user_id+"]")
+        line_bot_api.push_message(source.user_id,TextSendMessage(text=u'あなたは30秒前に、['+event.message.text+u']といいました'))
+        print("finish send push")
 
 
 if __name__ == "__main__":
