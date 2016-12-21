@@ -186,10 +186,10 @@ def handle_message(event):
             alltime=alltime+ str(item["minute"])
             alltime=alltime+ u"分\n"
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'時間追加しました\nいま設定されている時間は以下のようになります\n'+alltime))
-    elif re.compile(u"^(時間削除|時間消去)[\s]?([0-9]*)(?:時|じ|:|：)([0-9]*)(?:分|ふん)?$").search(text):
+    elif re.compile(u"^(時間削除|時間消去|時刻削除|時刻消去)[\s]?([0-9]*)(?:時|じ|:|：)([0-9]*)(?:分|ふん)?$").search(text):
         print "Time delete"
         print text
-        m = re.compile(u"^(時間削除|時間消去)[\s]?([0-9]*)(?:時|じ|:|：)([0-9]*)(?:分|ふん)?$").search(text)
+        m = re.compile(u"^(時間削除|時間消去|時刻削除|時刻消去)[\s]?([0-9]*)(?:時|じ|:|：)([0-9]*)(?:分|ふん)?$").search(text)
         bottime.delete_many({"id":id,"hour":int(m.group(2)),"minute":int(m.group(3))})
         alltime=""
         for item in bottime.find({"id":id}):
@@ -198,7 +198,7 @@ def handle_message(event):
             alltime=alltime+ u"時"
             alltime=alltime+ str(item["minute"])
             alltime=alltime+ u"分\n"
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'時間追加しました\nいま設定されている時間は以下のようになります\n'+alltime))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'時間を削除しました\nいま設定されている時間は以下のようになります\n'+alltime))
     elif re.compile(u"^(時間全部消去)$").search(text):
         bottime.delete_many({"id":id})
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=u'設定されている時間を全部消しました'))
