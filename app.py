@@ -27,8 +27,10 @@ from linebot.models import (
 UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent, BeaconEvent
 )
 # mongodb
+mongodbhost = os.getenv('MONGODB_HOST', 'localhost')
+mongodbport = os.getenv('MONGODB_PORT', 27017)
 
-mongoclient = pymongo.MongoClient("localhost", 27017)
+mongoclient = pymongo.MongoClient(mongodbhost, mongodbport)
 linedb=mongoclient.linebot
 botplace = linedb.place
 botlog = linedb.log
